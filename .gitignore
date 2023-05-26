@@ -1,0 +1,18 @@
+# ipython notebook checkpoints
+project/.ipynb_checkpoints/*
+
+# zipped folders
+*.zip
+
+# databases
+*.sqlite
+
+# data text files
+10min*.txt
+produkt*.txt
+
+# IDE project settings
+.idea/*
+
+# jupyter notebook checkpoints
+.ipynb_checkpoints/*
