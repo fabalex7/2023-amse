@@ -16,3 +16,6 @@ produkt*.txt
 
 # jupyter notebook checkpoints
 .ipynb_checkpoints/*
+
+# chaches
+*.pyc

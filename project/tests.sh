@@ -1,4 +1,6 @@
 #! /bin/sh
 echo "Testing the data pipeline..."
 
-python pipeline_test.py
+python test_pipeline.py
+
+echo "End of test"

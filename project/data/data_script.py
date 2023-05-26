@@ -18,12 +18,12 @@ def download_rain_data(location):
 
     # extracting the zip file contents
     zip_file= zipfile.ZipFile(BytesIO(req.content))
-    zip_file.extractall('./rain')
+    zip_file.extractall('./data/rain')
 
 
 def read_rain_data(station):
         
-    file_path = f"./rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"
+    file_path = f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"
     df = pd.read_csv(file_path, delimiter=";")
     
     # 3 years * 365 days * 24 hours * 6 10-min intervals + 1 leap day * 24 * 6
@@ -35,35 +35,43 @@ def read_rain_data(station):
     return df
 
 
-def read_cycling_data(location, year, month):
-    query_url = f"https://raw.githubusercontent.com/od-ms/radverkehr-zaehlstellen/main/{location}/{year}-{month}.csv"
-
-    df = pd.read_csv(query_url)
+def read_cycling_data(location, time_frame):
     
-    # 30/31 days * 24 hours * 4 15-min intervals
+    df = pd.DataFrame()
+    for element in time_frame:
+        year = str(element.year)
+        month = str(element.month).zfill(2)
+        query_url = f"https://raw.githubusercontent.com/od-ms/radverkehr-zaehlstellen/main/{location}/{year}-{month}.csv"
+
+        df_month = pd.read_csv(query_url)
+        
+        df = pd.concat([df, df_month])
+        
+    # 3 years * 365 days * 24 hours * 4 15-min intervals + 1 leap day * 24 * 4
+    # entries missing
     #print(len(df), "entries") 
     
     return df
 
 
 def write_data_to_sql(data, table_name):
-    engine = create_engine('sqlite:///my_data.sqlite', echo=False)
+    engine = create_engine('sqlite:///data/my_data.sqlite', echo=False)
     data.to_sql(table_name, con=engine, if_exists='replace', index=False)
 
 
 def gather_data():
     cycling_locations = {"100035541": "Neutor"}
     cycling_location = "100035541"
-    year = "2020"
-    month = "05"
 
     rain_locations = {"01766": "Münster/Osnabrück"}
     rain_location = "01766"
+    
+    time_frame = pd.Series(pd.date_range("2020-01-01", "2022-12-31", freq="M"))
 
     download_rain_data(rain_location)
     
     df_rain = read_rain_data(rain_location)    
-    df_cycling = read_cycling_data(cycling_location, year, month)
+    df_cycling = read_cycling_data(cycling_location, time_frame)
 
     write_data_to_sql(df_rain, "rain")
     write_data_to_sql(df_cycling, "cycling")
