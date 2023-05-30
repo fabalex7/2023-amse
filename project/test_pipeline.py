@@ -1,24 +1,40 @@
 import pandas as pd
 import os.path 
+import unittest
 import data.data_script
 
 
-def test_whole_pipeline():
+class TestPipeline(unittest.TestCase):
     
-    print("Testing the whole pipeline")
-    data.data_script.gather_data()
+    def test_whole_pipeline(self):
+        
+        print("Testing the whole pipeline")
+        data.data_script.gather_data()
 
-    if os.path.exists("./data/my_data.sqlite"):
+        self.assertTrue(os.path.exists("./data/my_data.sqlite"))
+        
         print("Pipeline test sucessful")
-    else:
-        print("While testing the pipeline an error occured")
-    
-    
-def test_cyling_data():
-    time_frame = pd.Series(pd.date_range("2020-01-01", "2022-12-31", freq="M"))
-    df = data.data_script.read_cycling_data("100035541", time_frame)
-    print(len(df))
+        
+        
+    def test_cyling_data(self):
+        
+        print("Testing the cycling data loading")
+        time_frame = pd.Series(pd.date_range("2020-01-01", "2022-12-31", freq="M"))
+        df = data.data_script.read_cycling_data("100035541", time_frame)
+        
+        self.assertEqual(len(df), 93189)
+        
+        print("Cycling data test successful")
+        
+        
+    def test_rain_data(self):
+        
+        print("Testing the rain data loading")
+        df = data.data_script.read_rain_data("01766")
+        
+        self.assertEqual(len(df), 157824)
+        
+        print("Rain data test successful")
 
 if __name__ == "__main__":
-    test_whole_pipeline()
-    #test_cyling_data()
+    unittest.main()

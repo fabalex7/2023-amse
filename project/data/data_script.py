@@ -14,7 +14,7 @@ def download_rain_data(location):
 
     # Downloading the file by sending the request to the URL
     req = requests.get(url)
-    print('Downloading Completed')
+    print('Downloading completed')
 
     # extracting the zip file contents
     zip_file= zipfile.ZipFile(BytesIO(req.content))
