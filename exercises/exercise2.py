@@ -13,6 +13,9 @@ df = df.drop(columns=["Status"])
 # remove rows with empty cells
 df = df.dropna()
 
+# assign dtype for column "Betreiber_Nr"
+df["Betreiber_Nr"] = df["Betreiber_Nr"].astype(int)
+
 # remove faulty values in column "Verkehr"
 verkehr_values = ["FV", "RV", "nur DPN"]
 df = df[df["Verkehr"].isin(verkehr_values)]
