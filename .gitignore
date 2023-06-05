@@ -1,6 +1,3 @@
-# ipython notebook checkpoints
-project/.ipynb_checkpoints/*
-
 # zipped folders
 *.zip
 
@@ -16,6 +13,7 @@ produkt*.txt
 
 # jupyter notebook checkpoints
 .ipynb_checkpoints/*
+*/.ipynb_checkpoints/*
 
 # chaches
 *.pyc
