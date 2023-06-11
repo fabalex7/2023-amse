@@ -3,7 +3,7 @@ echo "Testing the data pipeline..."
 
 echo "$PWD"
 
-echo "ls"
+echo "$ls"
 
 python ./test_pipeline.py
 
