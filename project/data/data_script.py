@@ -1,10 +1,10 @@
 import pandas as pd
 from sqlalchemy import create_engine
-import requests, zipfile
-from io import BytesIO
+#import requests, zipfile
+#from io import BytesIO
 
 
-def download_rain_data(location):
+""" def download_rain_data(location):
     print('Downloading started')
     # Defining the zip file URL
     url = f'https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/10_minutes/precipitation/historical/10minutenwerte_nieder_{location}_20200101_20221231_hist.zip'
@@ -18,7 +18,7 @@ def download_rain_data(location):
 
     # extracting the zip file contents
     zip_file= zipfile.ZipFile(BytesIO(req.content))
-    zip_file.extractall('./data/rain')
+    zip_file.extractall('./data/rain') """
 
 
 def read_rain_data(station):
