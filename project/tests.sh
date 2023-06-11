@@ -7,7 +7,7 @@ cd main
 
 echo "$PWD"
 
-pip install pandas
+pip install -r project/requirements.txt
 
 python project/test_pipeline.py
 
