@@ -3,8 +3,10 @@ echo "Testing the data pipeline..."
 
 echo "$PWD"
 
-echo "$ls"
+cd main
 
-python ./test_pipeline.py
+echo "$PWD"
+
+python project/test_pipeline.py
 
 echo "End of test"
