@@ -26,7 +26,9 @@ def download_rain_data(location):
 
 
 def read_rain_data(station):
-    print(os.getcwd())
+    entries = os.listdir('./')
+    for e in entries:
+        print(e)
     file_path = f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"
     df = pd.read_csv(file_path, delimiter=";")
     
