@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from sqlalchemy import create_engine
 import requests, zipfile
@@ -18,6 +19,7 @@ def download_rain_data(location):
 
     # extracting the zip file contents
     zip_file= zipfile.ZipFile(BytesIO(req.content))
+    os.makedirs('./data/rain')
     zip_file.extractall('./data/rain')
 
 
