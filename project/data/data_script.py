@@ -1,5 +1,3 @@
-import os
-import time
 import pandas as pd
 from sqlalchemy import create_engine
 import requests, zipfile
@@ -25,7 +23,6 @@ def download_rain_data(location):
 
 def read_rain_data(station):
     file_path = f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"
-    print("is file?", os.path.isfile(file_path))
     df = pd.read_csv(file_path, delimiter=";")
     
     # 3 years * 365 days * 24 hours * 6 10-min intervals + 1 leap day * 24 * 6
