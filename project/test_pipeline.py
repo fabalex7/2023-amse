@@ -6,7 +6,7 @@ import data.data_script
 
 class TestPipeline(unittest.TestCase):
     
-    def test_whole_pipeline(self):
+    def test_1_whole_pipeline(self):
         
         print("Testing the whole pipeline")
         data.data_script.gather_data()
@@ -16,7 +16,7 @@ class TestPipeline(unittest.TestCase):
         print("Pipeline test sucessful")
         
         
-    def test_cyling_data(self):
+    def test_2_cyling_data(self):
         
         print("Testing the cycling data loading")
         time_frame = pd.Series(pd.date_range("2020-01-01", "2022-12-31", freq="M"))
@@ -27,7 +27,7 @@ class TestPipeline(unittest.TestCase):
         print("Cycling data test successful")
         
         
-    def test_rain_data(self):
+    def test_3_rain_data(self):
         
         print("Testing the rain data loading")
         df = data.data_script.read_rain_data("01766")
