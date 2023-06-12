@@ -30,9 +30,9 @@ def read_rain_data(station):
     time.sleep(30)
     print("rain data cwd", os.getcwd())
     print("data/rain still exists?", os.path.exists("./data/rain"))
-    entries = os.listdir('./data/rain')
-    for e in entries:
-        print("content", e)
+    # entries = os.listdir('./data/rain')
+    # for e in entries:
+    #     print("content", e)
     file_path = f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"
     df = pd.read_csv(file_path, delimiter=";")
     
