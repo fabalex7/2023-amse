@@ -20,21 +20,12 @@ def download_rain_data(location):
 
     # extracting the zip file contents
     zip_file= zipfile.ZipFile(BytesIO(req.content))
-    os.makedirs('./data/rain')
     zip_file.extractall('./data/rain')
-    print("download cwd", os.getcwd())
-    print("data/rain exists?", os.path.exists("./data/rain"))
 
 
 def read_rain_data(station):
-    time.sleep(30)
-    print("rain data cwd", os.getcwd())
-    print("data/rain still exists?", os.path.exists("./data/rain"))
-    # entries = os.listdir('./data/rain')
-    # for e in entries:
-    #     print("content", e)
-    print("is file?", os.path.isfile(f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"))
     file_path = f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"
+    print("is file?", os.path.isfile(file_path))
     df = pd.read_csv(file_path, delimiter=";")
     
     # 3 years * 365 days * 24 hours * 6 10-min intervals + 1 leap day * 24 * 6
