@@ -29,6 +29,7 @@ def download_rain_data(location):
 def read_rain_data(station):
     time.sleep(30)
     print("rain data cwd", os.getcwd())
+    print("data/rain still exists?", os.path.exists("./data/rain"))
     entries = os.listdir('./data/rain')
     for e in entries:
         print("content", e)
