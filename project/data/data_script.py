@@ -33,6 +33,7 @@ def read_rain_data(station):
     # entries = os.listdir('./data/rain')
     # for e in entries:
     #     print("content", e)
+    print("is file?", os.path.isfile(f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"))
     file_path = f"./data/rain/produkt_zehn_min_rr_20200101_20221231_{station}.txt"
     df = pd.read_csv(file_path, delimiter=";")
     
