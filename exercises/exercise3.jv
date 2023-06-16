@@ -1,0 +1,78 @@
+pipeline CarsPipeline {
+
+    valuetype PositiveNumbers oftype integer {
+        constraints: [
+            OnlyPositiveNumbers,
+        ];
+    }
+
+    valuetype CIN oftype text {
+        constraints: [
+            Exactly5Characters,
+        ];
+    }
+
+    constraint OnlyPositiveNumbers oftype RangeConstraint {
+        lowerBound: 0;
+        lowerBoundInclusive: false;
+    }
+
+    constraint Exactly5Characters oftype LengthConstraint {
+        minLength: 5;
+        maxLength: 5;
+    }
+    
+    block CarsExtractor oftype HttpExtractor {
+        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46251-0021_00.csv";
+    }
+
+    block CarsTextFileInterpreter oftype TextFileInterpreter {
+        encoding: "ASCII";
+    }
+
+    block CarsCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+
+    }
+
+    block CarsRowDeleter oftype RowDeleter {
+        delete: [row 1, row 2, row 3, row 4, row 5, row 6, row 484, row 485, row 486, row 487];
+    }
+
+    block CarsColumnDeleter oftype ColumnDeleter {
+         delete: [column D, column E, column F, column G, column H, column I, column J, column K, column L, column N, column O, column P, column Q, column R, column S, column T, column U, column V, column X, column Y, column Z, column AA, column AB, column AC, column AD, column AE, column AF, column AH, column AI, column AJ, column AK, column AL, column AM, column AN, column AO, column AP, column AR, column AS, column AT, column AU, column AV, column AW, column AX, column AY, column AZ, column BB, column BC, column BD, column BE, column BF, column BG, column BH, column BI, column BJ, column BL, column BM, column BN, column BO, column BP, column BQ, column BR, column BS, column BT, column BV, column BW, column BX, column BY, column BZ, column CA, column CB, column CC, column CD, column CE];
+    }
+
+    //block CarsCellRangeSelector oftype CellRangeSelector {
+    //    select: range A1:C*;
+    //}
+
+    block CarsTableInterpreter oftype TableInterpreter {
+        header: false;
+        columns: [
+            "date" oftype text,
+            "CIN" oftype text,
+            "name" oftype text,
+            "petrol" oftype PositiveNumbers, 
+            "diesel" oftype PositiveNumbers,
+            "gas" oftype PositiveNumbers,
+            "electro" oftype PositiveNumbers,
+            "hybrid" oftype PositiveNumbers,
+            "plugInHybrid" oftype PositiveNumbers,
+            "others" oftype PositiveNumbers 
+        ];
+    }
+
+    block CarsLoader oftype SQLiteLoader {
+        table: "cars";
+        file: "./cars.sqlite";
+    }
+
+    CarsExtractor
+        ->CarsTextFileInterpreter
+        ->CarsCSVInterpreter
+        ->CarsRowDeleter
+        ->CarsColumnDeleter
+        ->CarsTableInterpreter
+        ->CarsLoader;
+}
