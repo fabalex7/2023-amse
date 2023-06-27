@@ -9,7 +9,7 @@ Provider: Stadt Münster
 License: "Data licence Germany – attribution – Version 2.0"    
 URI: https://github.com/od-ms/radverkehr-zaehlstellen/tree/main  
 
-weather data: 
+weather data:  
 Provider: Deutscher Wetterdienst  
 License: "Verordnung zur Festlegung der Nutzungsbestimmungen für die Bereitstellung von Geodaten des Bundes (GeoNutzV)"  
 URI: https://opendata.dwd.de/climate_environment/CDC/observations_germany/climate/10_minutes/precipitation/recent/  
