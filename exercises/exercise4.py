@@ -31,5 +31,5 @@ df = df[(df["Geraet"] > 0) &
          (df["Geraet aktiv"]=="Nein"))]
 
 # write to sqlite database
-engine = create_engine('sqlite:///./exercises/temperatures.sqlite', echo=False)
+engine = create_engine('sqlite:///./temperatures.sqlite', echo=False)
 df.to_sql("temperatures", con=engine, if_exists='replace', index=False)
